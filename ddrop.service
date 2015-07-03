@@ -1,0 +1,12 @@
+[Service]
+ExecStart=/usr/bin/nodejs --harmony /home/david/html/share/ddrop.js
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ddrop
+User=david
+Group=david
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

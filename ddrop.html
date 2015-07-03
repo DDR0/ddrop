@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf8">
+		<title>test</title>
+		<style type="text/css">
+			label {
+				display: block;
+			}
+			ddr-block {
+				display: inline-block;
+				width: 55px;
+			}
+			textarea {
+				vertical-align: top;
+			}
+			
+			.success {
+				color: green;
+			}
+			.error {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<strong>Text Upload:</strong>
+		<br><br>
+		<form method="POST" onsubmit="return false;">
+			<label><ddr-block>name:</ddr-block><input name="filename"></textarea></label>
+			<label><ddr-block>text:</ddr-block><textarea name="text"cols="40" rows="5"></textarea></label>
+			<label><ddr-block></ddr-block><button id="writeFile">write file</button> %DROP_RESULTS%</label>
+		</form>
+		<script>
+			document.getElementById('writeFile').addEventListener('click', function() {
+				"use strict";
+				var form = document.forms[0];
+				var i;
+				for(i=0; i < form.children.length; i++) {
+					if(form.children[i].children[1].value) {
+						//Encode the form elements here so they don't get spaces encoded as +.
+						form.children[i].children[1].value = btoa(form.children[i].children[1].value);
+					}
+				}
+				form.submit();
+				for(i=0; i < form.children.length; i++) {
+					if(form.children[i].children[1].value) {
+						form.children[i].children[1].value = atob(form.children[i].children[1].value);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
